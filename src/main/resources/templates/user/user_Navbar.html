@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="parent(content)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/userDashBoard.css}">
+    
+        <title>Base page</title>
+    
+            <style>
+                * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                }
+
+                body {
+                    display: flex;
+                    min-height: 100vh;
+                }
+
+                .sidebar {
+                    width: 250px;
+                    background: #2c3e50;
+                    color: white;
+                    padding-top: 20px;
+                    position: fixed;
+                    height: 100%;
+                    transition: transform 0.3s ease;
+                }
+
+                .sidebar h2 {
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
+                .sidebar a {
+                    display: block;
+                    padding: 15px 25px;
+                    text-decoration: none;
+                    color: white;
+                    transition: background 0.3s;
+                }
+
+                .sidebar a:hover {
+                    background: #34495e;
+                }
+
+                .main {
+                    margin-left: 250px;
+                    padding: 20px;
+                    flex: 1;
+                }
+
+                .toggle-btn {
+                    display: none;
+                    position: absolute;
+                    top: 15px;
+                    left: 15px;
+                    font-size: 24px;
+                    cursor: pointer;
+                    color: #2c3e50;
+                    z-index: 999;
+                }
+
+                @media (max-width: 768px) {
+                    .sidebar {
+                        transform: translateX(-100%);
+                    }
+
+                    .sidebar.active {
+                        transform: translateX(0);
+                    }
+
+                    .main {
+                        margin-left: 0;
+                    }
+
+                    .toggle-btn {
+                        display: block;
+                    }
+                }
+            </style>
+
+            
+</head>
+
+<body style="background-color: #ecf1ff;">
+
+    <!--Nav bar-->
+
+    <div class="">
+        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary ">
+            <div class="container-fluid">
+                <img th:src="@{'/image/scm20.png'}" alt="" width="20px" height="20px">
+                <a class="navbar-brand fw-bold" href="#">SCM2.0</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/about}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/service}">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/contact}">Contact</a>
+                        </li>
+
+                    </ul>
+                    <div>
+                        
+                    <div class="d-flex gap-3">
+                          
+                     <div th:if="${user}">   
+                        <img th:src="@{/image/default.png}" alt="" style="width:30px; height:30px;">
+                        
+                        <button class="btn bg-primary btn-sm">
+                            <a class="text-light fw-bold" th:href="@{/user/profile}" style="text-decoration: none;"
+                                th:text="${user.name}">User</a>
+                        </button>
+                     </div>
+                     <div>
+                        <button class="btn bg-danger btn-sm">
+                            <a class="text-light fw-bold bg-danger" th:href="@{/logout}"
+                                style="text-decoration: none;">Logout</a>
+                        </button>
+                     </div>  
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!--Side bar-->
+
+    <div class="d-flex">
+       <div class="sidebar fixed-left" style="padding-top:50px;">
+
+            <div class="sidebar" id="sidebar">
+                <h2>My Menu</h2>
+                <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+                <a th:href="@{/user/dashboard}">
+                    <i class="fa-solid fa-house-user"></i>
+                    Dashboard</a>
+                <a th:href="@{/user/profile}">
+                    <i class="fa-solid fa-user"></i>
+                    Profile</a>
+                    
+                <a th:href="@{/user/myContact}">
+                <i class="fa-solid fa-id-badge"></i>
+                 My Contacts</a>
+
+                <a th:href="@{/user/addContact}">
+                <i class="fa-solid fa-plus"></i>
+                 Add Contacts</a>
+                
+                <a th:href="@{/user/setting}">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings</a>
+
+                <a th:href="@{/logout}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout</a>
+            </div>
+     </div> 
+
+           
+
+            <div class="main" th:replace="${content}">
+
+                <h1>Welcome!</h1>
+                <p>This is the main content area.</p>
+                
+            </div>
+
+     </div>   
+         
+
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script> 
+</body>
+
+</html>
+
+
+

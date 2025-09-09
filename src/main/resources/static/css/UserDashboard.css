@@ -1,0 +1,29 @@
+.banner2{
+	
+	width:100%;
+	height:93vh;
+	background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.8)),url(../image/userDashBoard.jpg);
+	background-size: cover;
+	color: white;
+}
+
+.contactImg{
+	height: 200px;
+	border-radius: 20px;
+}
+
+.animated-card {
+        opacity: 0;
+        transform: translateY(60px) scale(0.95);
+        animation: cardSlideIn 1s 0.3s forwards cubic-bezier(.68,-0.55,.27,1.55);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        border-radius: 1.5rem;
+        border: none;
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      }
+      @keyframes cardSlideIn {
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+}

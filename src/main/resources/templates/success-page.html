@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{baseHome :: parent(~{::#section})}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>about</title>
+  </head>
+  <body>
+    
+    <section id="section">
+
+       <div th:if="${session.message}" th:object="${session.message}">
+              <div class="alert alert-success text-center" role="alert">
+                <p th:text="*{content}"></p>
+              </div>
+              <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+        </div>
+
+        <h1>SuccessFully logged in</h1>
+
+        <d>
+
+        </div>
+    </section>
+
+
+
+   
+   
+  </body>
+</html>
