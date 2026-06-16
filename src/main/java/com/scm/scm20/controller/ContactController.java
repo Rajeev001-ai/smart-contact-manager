@@ -2,7 +2,6 @@ package com.scm.scm20.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.scm.scm20.Forms.ContactForm;
 import com.scm.scm20.Helpers.AppConstants;
 import com.scm.scm20.Helpers.Helper;
@@ -229,6 +227,10 @@ public class ContactController {
         return "redirect:/user/updateContact/"+contactId;
     }
     
+    @GetMapping("/chatBot")
+    public String getChatBot() {
+        return "user/AiChatPage";
+    }
     
     
     

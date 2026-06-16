@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ import com.scm.scm20.userRepo.UserRepository;
 
 @Service
 public class UserService { //implement Userservice
+
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
   @Autowired
   UserRepository userRepo;
@@ -50,7 +55,14 @@ public class UserService { //implement Userservice
      user.setEmailToken(emailToken);
      User saveUser=userRepo.save(user);
      String eamilLink=Helper.getLinkForEmailVerification(emailToken);
-     emailService.sendEmail(saveUser.getEmail(), "verify Account: Smart Contact Manager", eamilLink);
+     try {
+       emailService.sendEmail(saveUser.getEmail(), "verify Account: Smart Contact Manager", eamilLink);
+     } catch (MailException ex) {
+       logger.error("Failed to send verification email to {}", saveUser.getEmail(), ex);
+       saveUser.setEnabled(true);
+       saveUser.setEmailVerified(true);
+       saveUser = userRepo.save(saveUser);
+     }
 
      return saveUser; 
   }

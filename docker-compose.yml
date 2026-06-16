@@ -1,0 +1,8 @@
+services:
+  scm-app:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${SERVER_PORT:-8081}:${SERVER_PORT:-8081}"
+    restart: unless-stopped

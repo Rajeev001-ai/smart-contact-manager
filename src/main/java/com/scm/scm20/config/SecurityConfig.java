@@ -49,16 +49,17 @@ public class SecurityConfig {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         
-         httpSecurity.formLogin(formlogin -> {
-    	      formlogin.loginPage("/login");
-	          formlogin.loginProcessingUrl("/user/do-login");
-   	         //formlogin.successForwardUrl("/user/dashboard");
-             // formlogin.failureForwardUrl("/login?error=true");
-   	          formlogin.usernameParameter("email");    
-   	          formlogin.passwordParameter("password");
+        httpSecurity.formLogin(formlogin -> {
+              formlogin.loginPage("/login");
+              formlogin.loginProcessingUrl("/user/do-login");
+             //formlogin.successForwardUrl("/user/dashboard");
+             //formlogin.failureForwardUrl("/login?error=true");
+              formlogin.usernameParameter("email");
+              formlogin.passwordParameter("password");
+              formlogin.defaultSuccessUrl("/user/dashboard", true);
 
               formlogin.failureHandler(authFailureHandler);
-    	   });
+        });
            
            
              httpSecurity.logout(logoutForm ->{

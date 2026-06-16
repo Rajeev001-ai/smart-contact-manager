@@ -62,10 +62,16 @@ public class HomeController {
     }
 
     @PostMapping("/do-register")
-    public String formProcess(@Valid @ModelAttribute User user,HttpSession session,BindingResult result){
+    public String formProcess(@Valid @ModelAttribute User user, BindingResult result, HttpSession session){
 
 
         if(result.hasErrors()){
+            return "signup";
+        }
+
+        if(userService.isUserExistByEmail(user.getEmail())){
+            Message message=Message.builder().content("Email already registered  !! ").type(messageType.danger).build();
+            session.setAttribute("message",message);
             return "redirect:/signup";
         }
 

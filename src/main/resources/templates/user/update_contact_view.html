@@ -167,19 +167,19 @@
     </div>
   </nav>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="user-profile">
-      <img th:src="@{/image/default.png}" alt="Profile">
-      <h6 th:text="${user.name}">User Name</h6>
+    <div class="sidebar" id="sidebar">
+        <div class="user-profile">
+            <img th:src="@{/image/default.png}" alt="Profile">
+            <h6 th:text="${user.name}">User Name</h6>
+        </div>
+        <a th:href="@{/user/dashboard}"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
+        <a th:href="@{/user/profile}"><i class="fa-solid fa-user me-2"></i> Profile</a>
+        <a th:href="@{/user/myContact}"><i class="fa-solid fa-address-book me-2"></i> My Contacts</a>
+        <a th:href="@{/user/addContact}"><i class="fa-solid fa-user-plus me-2"></i> Add Contact</a>
+        <a th:href="@{/user/setting}"><i class="fa-solid fa-gear me-2"></i> Settings</a>
+        <a th:href="@{/user/chatBot}"><i class="fa-solid fa-gear me-2"></i> ChatBot</a>
+        <a th:href="@{/logout}"><i class="fa-solid fa-sign-out-alt me-2"></i> Logout</a>
     </div>
-    <a th:href="@{/user/dashboard}"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
-    <a th:href="@{/user/profile}"><i class="fa-solid fa-user me-2"></i> Profile</a>
-    <a th:href="@{/user/myContact}"><i class="fa-solid fa-address-book me-2"></i> My Contacts</a>
-    <a th:href="@{/user/addContact}"><i class="fa-solid fa-user-plus me-2"></i> Add Contact</a>
-    <a th:href="@{/user/setting}"><i class="fa-solid fa-gear me-2"></i> Settings</a>
-    <a th:href="@{/logout}"><i class="fa-solid fa-sign-out-alt me-2"></i> Logout</a>
-  </div>
 
   <!-- Main Content -->
   <div class="main-content">

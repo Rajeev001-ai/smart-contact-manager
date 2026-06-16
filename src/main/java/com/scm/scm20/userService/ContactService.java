@@ -38,7 +38,7 @@ public class ContactService {
       return contactRepository.findAll();
     }
     
-    //getCOntact by id
+    //getContact by id
     public Optional<Contact> getById(int id){
       return contactRepository.findById(id);
     }

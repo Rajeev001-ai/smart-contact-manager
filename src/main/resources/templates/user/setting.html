@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>SCM Dashboard</title>
+  <title>SCM Settings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Bootstrap & FontAwesome -->
@@ -135,6 +135,70 @@
     .form-check .form-check-input {
       cursor: pointer;
     }
+
+    .settings-header {
+      animation: fadeInUp 0.8s ease-out;
+      background: linear-gradient(135deg, #dff6f7, #ffffff);
+      border-radius: 15px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      margin-bottom: 24px;
+    }
+
+    body.dark-mode .settings-header {
+      background: linear-gradient(135deg, #2b2d42, #1c1e26);
+    }
+
+    .setting-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex: 0 0 44px;
+    }
+
+    .settings-card {
+      background-color: var(--card-bg);
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+
+    .settings-card .list-group-item {
+      background-color: transparent;
+      color: var(--text-main);
+    }
+
+    .quick-action {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .quick-action:hover {
+      color: #0d6efd;
+    }
+
+    @media (max-width: 767px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .main-content.shifted {
+        margin-left: 240px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -167,23 +231,135 @@
     </div>
   </nav>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="user-profile">
-      <img th:src="@{/image/default.png}" alt="Profile">
-      <h6 th:text="${user.name}">User Name</h6>
+   <div class="sidebar" id="sidebar">
+        <div class="user-profile">
+            <img th:src="@{/image/default.png}" alt="Profile">
+            <h6 th:text="${user.name}">User Name</h6>
+        </div>
+        <a th:href="@{/user/dashboard}"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
+        <a th:href="@{/user/profile}"><i class="fa-solid fa-user me-2"></i> Profile</a>
+        <a th:href="@{/user/myContact}"><i class="fa-solid fa-address-book me-2"></i> My Contacts</a>
+        <a th:href="@{/user/addContact}"><i class="fa-solid fa-user-plus me-2"></i> Add Contact</a>
+        <a th:href="@{/user/setting}"><i class="fa-solid fa-gear me-2"></i> Settings</a>
+        <a th:href="@{/user/chatBot}"><i class="fa-solid fa-gear me-2"></i> ChatBot</a>
+        <a th:href="@{/logout}"><i class="fa-solid fa-sign-out-alt me-2"></i> Logout</a>
     </div>
-    <a th:href="@{/user/dashboard}"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
-    <a th:href="@{/user/profile}"><i class="fa-solid fa-user me-2"></i> Profile</a>
-    <a th:href="@{/user/myContact}"><i class="fa-solid fa-address-book me-2"></i> My Contacts</a>
-    <a th:href="@{/user/addContact}"><i class="fa-solid fa-user-plus me-2"></i> Add Contact</a>
-    <a th:href="@{/user/setting}"><i class="fa-solid fa-gear me-2"></i> Settings</a>
-    <a th:href="@{/logout}"><i class="fa-solid fa-sign-out-alt me-2"></i> Logout</a>
-  </div>
 
   <!-- Main Content -->
-  <div class="main-content">
-    <h1>Change Setting From Here</h1>
+  <div class="main-content" id="mainContent">
+    <div class="container">
+      <div class="settings-header">
+        <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+          <div>
+            <h2 class="fw-bold mb-2">Settings</h2>
+            <p class="mb-0 text-muted">Manage your account, display preferences, and contact manager shortcuts.</p>
+          </div>
+          <a th:href="@{/user/profile}" class="btn btn-primary">
+            <i class="fa-solid fa-user-pen me-2"></i>View Profile
+          </a>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="settings-card card-animate p-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <img th:src="@{/image/default.png}" alt="User" class="rounded-circle border"
+                style="width: 72px; height: 72px;">
+              <div>
+                <h5 class="mb-1" th:text="${user.name}">User Name</h5>
+                <p class="mb-0 text-muted" th:text="${user.email}">user@example.com</p>
+              </div>
+            </div>
+
+            <div class="list-group list-group-flush">
+              <div class="list-group-item px-0 d-flex justify-content-between">
+                <span>Phone</span>
+                <span class="fw-semibold" th:text="${user.phoneNumber}">Not added</span>
+              </div>
+              <div class="list-group-item px-0">
+                <span class="d-block mb-1">About</span>
+                <span class="text-muted" th:text="${user.about}">No about information added.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="settings-card card-animate p-4">
+                <div class="d-flex gap-3">
+                  <span class="setting-icon bg-primary">
+                    <i class="fa-solid fa-sliders"></i>
+                  </span>
+                  <div>
+                    <h5 class="fw-bold mb-2">Preferences</h5>
+                    <div class="form-check form-switch mb-3">
+                      <input class="form-check-input" type="checkbox" id="settingsDarkMode" onchange="toggleDarkMode()">
+                      <label class="form-check-label" for="settingsDarkMode">Dark mode</label>
+                    </div>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="compactView">
+                      <label class="form-check-label" for="compactView">Compact contact view</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="settings-card card-animate p-4">
+                <div class="d-flex gap-3">
+                  <span class="setting-icon bg-success">
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </span>
+                  <div>
+                    <h5 class="fw-bold mb-2">Security</h5>
+                    <p class="text-muted mb-3">Keep your profile details accurate and sign out when you finish using this device.</p>
+                    <a th:href="@{/logout}" class="btn btn-outline-danger btn-sm">
+                      <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="settings-card card-animate p-4">
+                <h5 class="fw-bold mb-3">Quick Actions</h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <a th:href="@{/user/addContact}" class="quick-action d-flex align-items-center gap-3 p-3 border rounded">
+                      <span class="setting-icon bg-danger">
+                        <i class="fa-solid fa-user-plus"></i>
+                      </span>
+                      <span class="fw-semibold">Add Contact</span>
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a th:href="@{/user/myContact}" class="quick-action d-flex align-items-center gap-3 p-3 border rounded">
+                      <span class="setting-icon bg-info">
+                        <i class="fa-solid fa-address-book"></i>
+                      </span>
+                      <span class="fw-semibold">My Contacts</span>
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a th:href="@{/user/dashboard}" class="quick-action d-flex align-items-center gap-3 p-3 border rounded">
+                      <span class="setting-icon bg-warning">
+                        <i class="fa-solid fa-chart-line"></i>
+                      </span>
+                      <span class="fw-semibold">Dashboard</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
